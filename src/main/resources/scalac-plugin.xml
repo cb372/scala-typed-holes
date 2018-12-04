@@ -1,0 +1,4 @@
+<plugin>
+  <name>typed-holes</name>
+  <classname>holes.TypedHolesPlugin</classname>
+</plugin>
