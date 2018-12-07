@@ -1,5 +1,4 @@
 organization := "com.github.cb372"
-scalaVersion := "2.12.8"
 libraryDependencies += scalaOrganization.value % "scala-compiler" % scalaVersion.value
 
 publishTo := sonatypePublishTo.value
@@ -18,6 +17,7 @@ developers := List(
   )
 )
 
+scalacOptions ++= Seq("-deprecation")
 scalacOptions in Test ++= {
   val jar = (packageBin in Compile).value
   Seq(s"-Xplugin:${jar.getAbsolutePath}", s"-Jdummy=${jar.lastModified}") // ensures recompile

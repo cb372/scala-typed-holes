@@ -20,7 +20,7 @@ class TypedHolesComponent(plugin: Plugin, val global: Global)
   import global._
 
   override def newPhase(prev: Phase): StdPhase = new StdPhase(prev) {
-    override def apply(unit: CompilationUnit) {
+    override def apply(unit: CompilationUnit): Unit = {
       new TypedHolesTraverser(unit).traverse(unit.body)
     }
   }
@@ -71,8 +71,8 @@ class TypedHolesComponent(plugin: Plugin, val global: Global)
 
     }
 
-    private def collectRelevantBindings: Map[Name, Binding] =
-      bindings.foldLeft(Map.empty[Name, Binding]){ case (acc, level) => level ++ acc }
+    private def collectRelevantBindings: Map[TermName, Binding] =
+      bindings.foldLeft(Map.empty[TermName, Binding]){ case (acc, level) => level ++ acc }
 
     private def warn(pos: Position, tpe: Type): Unit = {
       val relevantBindingsMessages =
