@@ -55,7 +55,7 @@ you'll get warnings that look something like this:
 In sbt:
 
 ```
-addCompilerPlugin("com.github.cb372" %% "scala-typed-holes" % "0.0.2")
+addCompilerPlugin("com.github.cb372" %% "scala-typed-holes" % "0.0.3")
 ```
 
 ## Making compilation fail
