@@ -5,13 +5,43 @@ import scala.tools.nsc.{Global, Phase}
 import scala.tools.nsc.ast.TreeDSL
 import scala.tools.nsc.plugins.{Plugin, PluginComponent}
 
+sealed abstract class LogLevel
+object LogLevel {
+  case object Info extends LogLevel
+  case object Warn extends LogLevel
+  case object Error extends LogLevel
+}
+
 class TypedHolesPlugin(val global: Global) extends Plugin {
   val name = "typed-holes"
   val description = "Treat use of ??? as a hole and give a useful warning about it"
-  val components = List(new TypedHolesComponent(this, global))
+
+  private var logLevel: LogLevel = LogLevel.Warn
+
+  override def processOptions(options: List[String], error: String => Unit): Unit = {
+    for (option <- options) {
+      if (option.startsWith("log-level:")) {
+        option.substring("log-level:".length).toLowerCase match {
+          case "info" =>
+            logLevel = LogLevel.Info
+          case "warn" =>
+            logLevel = LogLevel.Warn
+          case "error" =>
+            logLevel = LogLevel.Error
+          case other =>
+            error(s"Unexpected log level value: '$other'")
+        }
+      } else {
+        error(s"Unrecognised option: $option")
+      }
+    }
+  }
+
+  val components = List(new TypedHolesComponent(this, global, () => logLevel))
+
 }
 
-class TypedHolesComponent(plugin: Plugin, val global: Global)
+class TypedHolesComponent(plugin: Plugin, val global: Global, getLogLevel: () => LogLevel)
   extends PluginComponent with TreeDSL {
 
   override val phaseName: String = "typed-holes"
@@ -35,13 +65,13 @@ class TypedHolesComponent(plugin: Plugin, val global: Global)
 
       tree match {
         case ValDef(_, _, tpt, Hole(holeInRhs)) =>
-          warn(holeInRhs.pos, tpt.tpe)
+          log(holeInRhs.pos, tpt.tpe)
           super.traverse(tree)
         case ValDef(_, _, _, _) =>
           super.traverse(tree)
         case DefDef(_, _, _, vparamss, tpt, Hole(holeInRhs)) =>
           bindings.push(vparamss.flatten.map(param => (param.name, Binding(param.tpt.tpe, param.pos))).toMap)
-          warn(holeInRhs.pos, tpt.tpe)
+          log(holeInRhs.pos, tpt.tpe)
           super.traverse(tree)
           bindings.pop()
         case DefDef(_, _, _, vparamss, _, _) =>
@@ -49,19 +79,19 @@ class TypedHolesComponent(plugin: Plugin, val global: Global)
           super.traverse(tree)
           bindings.pop()
         case If(_, Hole(a), Hole(b)) =>
-          warn(a.pos, tree.tpe)
-          warn(b.pos, tree.tpe)
+          log(a.pos, tree.tpe)
+          log(b.pos, tree.tpe)
           super.traverse(tree)
         case If(_, Hole(a), _) =>
-          warn(a.pos, tree.tpe)
+          log(a.pos, tree.tpe)
           super.traverse(tree)
         case If(_, _, Hole(b)) =>
-          warn(b.pos, tree.tpe)
+          log(b.pos, tree.tpe)
           super.traverse(tree)
         case m @ Match(_, cases) =>
           cases foreach {
             case CaseDef(_, _, Hole(holeInBody)) =>
-              warn(holeInBody.pos, m.tpe)
+              log(holeInBody.pos, m.tpe)
             case _ =>
           }
           super.traverse(tree)
@@ -74,7 +104,7 @@ class TypedHolesComponent(plugin: Plugin, val global: Global)
     private def collectRelevantBindings: Map[TermName, Binding] =
       bindings.foldLeft(Map.empty[TermName, Binding]){ case (acc, level) => level ++ acc }
 
-    private def warn(pos: Position, tpe: Type): Unit = {
+    private def log(pos: Position, tpe: Type): Unit = {
       val relevantBindingsMessages =
         collectRelevantBindings.map {
           case (boundName, Binding(boundType, bindingPos)) => s"  $boundName: $boundType (bound at ${posSummary(bindingPos)})"
@@ -89,7 +119,11 @@ class TypedHolesComponent(plugin: Plugin, val global: Global)
            """.stripMargin
         else
           s"Found hole with type: $tpe"
-      warning(pos, message)
+      getLogLevel() match {
+        case LogLevel.Info => inform(pos, message)
+        case LogLevel.Warn => warning(pos, message)
+        case LogLevel.Error => globalError(pos, message)
+      }
     }
 
     private def posSummary(pos: Position): String =

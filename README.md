@@ -58,7 +58,20 @@ In sbt:
 addCompilerPlugin("com.github.cb372" %% "scala-typed-holes" % "0.0.3")
 ```
 
-## Making compilation fail
+## Changing the log level
 
-If you want to fail compilation if your program contains any holes, you can pass
-the `-Xfatal-warnings` flag to the compiler.
+By passing a compiler option `-P:typed-holes:log-level:<level>`, you can control
+the severity with which holes are logged.
+
+* `info` means holes will be logged as informational messages
+* `warn` means holes will be logged as compiler warnings
+* `error` means holes will be logged as compiler errors, so your program will
+  fail to compile if it contains any holes.
+
+The default behaviour is to log holes as warnings.
+
+If you are using sbt, you can pass the option like this:
+
+```
+scalacOptions += "-P:typed-holes:log-level:info"
+```
