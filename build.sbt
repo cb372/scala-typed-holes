@@ -15,7 +15,11 @@ sonatypeProjectHosting := Some(GitHubHosting("cb372", "scala-typed-holes", "chri
 scalacOptions ++= Seq("-deprecation")
 scalacOptions in Test ++= {
   val jar = (packageBin in Compile).value
-  Seq(s"-Xplugin:${jar.getAbsolutePath}", s"-Jdummy=${jar.lastModified}") // ensures recompile
+  Seq(
+    s"-Xplugin:${jar.getAbsolutePath}",
+    s"-Jdummy=${jar.lastModified}", // ensures recompile
+    "-P:typed-holes:log-level:info"
+  )
 }
 
 releaseProcess := Seq[ReleaseStep](
