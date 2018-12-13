@@ -5,6 +5,7 @@ organization := "com.github.cb372"
 libraryDependencies += scalaOrganization.value % "scala-compiler" % scalaVersion.value
 
 publishTo := sonatypePublishTo.value
+crossVersion := CrossVersion.full
 releaseCrossBuild := true
 releasePublishArtifactsAction := PgpKeys.publishSigned.value
 pomIncludeRepository := { _ => false }
