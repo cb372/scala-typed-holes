@@ -18,14 +18,6 @@ publishMavenStyle := true
 licenses := Seq("Apache License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.html"))
 sonatypeProjectHosting := Some(GitHubHosting("cb372", "scala-typed-holes", "chris.birchall@gmail.com"))
 
-//scalacOptions in Test ++= {
-//  val jar = (packageBin in Compile).value
-//  Seq(
-//    s"-Xplugin:${jar.getAbsolutePath}",
-//    s"-Jdummy=${jar.lastModified}", // ensures recompile
-//    "-P:typed-holes:log-level:info"
-//  )
-//}
 fork in Test := true
 javaOptions in Test ++= {
   val jar = (packageBin in Compile).value
@@ -33,7 +25,6 @@ javaOptions in Test ++= {
   Seq(
     s"-Dplugin.jar=${jar.getAbsolutePath}",
     s"-Dscalac.classpath=$scalacClasspath"
-//    "-P:typed-holes:log-level:info"
   )
 }
 

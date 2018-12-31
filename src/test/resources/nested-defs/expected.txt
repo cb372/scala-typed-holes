@@ -1,0 +1,25 @@
+src/test/resources/nested-defs/input.scala:8:
+Found hole with type: Double
+Relevant bindings include
+  x: Int (bound at input.scala:7:16)
+  y: String (bound at input.scala:5:22)
+  z: Boolean (bound at input.scala:7:24)
+
+      ???
+      ^
+src/test/resources/nested-defs/input.scala:13:
+Found hole with type: String
+Relevant bindings include
+  x: Int (bound at input.scala:11:16)
+  y: String (bound at input.scala:5:22)
+
+        ???
+        ^
+src/test/resources/nested-defs/input.scala:16:
+Found hole with type: String
+Relevant bindings include
+  x: Int (bound at input.scala:11:16)
+  y: String (bound at input.scala:5:22)
+
+        ???
+        ^

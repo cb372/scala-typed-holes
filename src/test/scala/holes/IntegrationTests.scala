@@ -48,9 +48,9 @@ class IntegrationTests extends FunSpec with BeforeAndAfterAll {
     Files.createDirectories(targetDir)
   }
 
-  for (scenario <- Paths.get("src/test/resources").toFile.listFiles().toList.map(_.toPath)) {
-    describe(scenario.getFileName.toString) {
-      it("produces the expected output") {
+  describe("produces the expected output") {
+    for (scenario <- Paths.get("src/test/resources").toFile.listFiles().toList.map(_.toPath)) {
+      it(scenario.getFileName.toString) {
         val expected =
           new String(Files.readAllBytes(scenario.resolve("expected.txt")), StandardCharsets.UTF_8).trim
         val actual =

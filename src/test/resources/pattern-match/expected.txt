@@ -1,0 +1,14 @@
+src/test/resources/pattern-match/input.scala:9:
+Found hole with type: String
+Relevant bindings include
+  x: Int (bound at input.scala:5:11)
+
+      ???
+      ^
+src/test/resources/pattern-match/input.scala:10:
+Found hole with type: String
+Relevant bindings include
+  x: Int (bound at input.scala:5:11)
+
+    case _ => ???
+              ^
