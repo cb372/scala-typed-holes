@@ -1,9 +1,14 @@
 import ReleaseTransformations._
 import xerial.sbt.Sonatype._
 
-organization := "com.github.cb372"
-libraryDependencies += scalaOrganization.value % "scala-compiler" % scalaVersion.value
+scalacOptions ++= Seq("-deprecation")
+libraryDependencies ++= Seq(
+  scalaOrganization.value % "scala-compiler" % scalaVersion.value,
+  "org.scalatest" %% "scalatest" % "3.0.6-SNAP5" % Test,
+  "commons-io" % "commons-io" % "2.6" % Test
+)
 
+organization := "com.github.cb372"
 publishTo := sonatypePublishTo.value
 crossVersion := CrossVersion.full
 releaseCrossBuild := true
@@ -13,13 +18,13 @@ publishMavenStyle := true
 licenses := Seq("Apache License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.html"))
 sonatypeProjectHosting := Some(GitHubHosting("cb372", "scala-typed-holes", "chris.birchall@gmail.com"))
 
-scalacOptions ++= Seq("-deprecation")
-scalacOptions in Test ++= {
+fork in Test := true
+javaOptions in Test ++= {
   val jar = (packageBin in Compile).value
+  val scalacClasspath = scalaInstance.value.allJars.mkString(java.io.File.pathSeparator)
   Seq(
-    s"-Xplugin:${jar.getAbsolutePath}",
-    s"-Jdummy=${jar.lastModified}", // ensures recompile
-    "-P:typed-holes:log-level:info"
+    s"-Dplugin.jar=${jar.getAbsolutePath}",
+    s"-Dscalac.classpath=$scalacClasspath"
   )
 }
 

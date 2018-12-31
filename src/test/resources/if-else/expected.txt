@@ -1,0 +1,24 @@
+src/test/resources/if-else/input.scala:7:
+Found hole with type: Boolean
+Relevant bindings include
+  x: Int (bound at input.scala:5:9)
+  y: String (bound at input.scala:5:17)
+
+      ???
+      ^
+src/test/resources/if-else/input.scala:10:
+Found hole with type: Boolean
+Relevant bindings include
+  x: Int (bound at input.scala:5:9)
+  y: String (bound at input.scala:5:17)
+
+      ???
+      ^
+src/test/resources/if-else/input.scala:15:
+Found hole with type: Boolean
+Relevant bindings include
+  x: Int (bound at input.scala:14:9)
+  y: String (bound at input.scala:14:17)
+
+    if (y.length == x) ???
+                       ^
