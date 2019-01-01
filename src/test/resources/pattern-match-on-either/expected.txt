@@ -1,0 +1,14 @@
+src/test/resources/pattern-match-on-either/input.scala:10:
+Found hole with type: Option[Ops]
+Relevant bindings include
+  args: List[String] (bound at input.scala:9:20)
+
+    case Left(_)  => ???
+                     ^
+src/test/resources/pattern-match-on-either/input.scala:11:
+Found hole with type: Option[Ops]
+Relevant bindings include
+  args: List[String] (bound at input.scala:9:20)
+
+    case Right(_) => ???
+                     ^
