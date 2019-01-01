@@ -1,17 +1,14 @@
-src/test/resources/issue-10/input.scala:12:
+src/test/resources/issue-10/input.scala:10:
 Found hole with type: Option[Ops]
 Relevant bindings include
-  args: List[String] (bound at input.scala:11:20)
+  args: List[String] (bound at input.scala:9:20)
 
     case Left(_)  => ???
                      ^
-src/test/resources/issue-10/input.scala:13:
+src/test/resources/issue-10/input.scala:11:
 Found hole with type: Option[Ops]
 Relevant bindings include
-  args: List[String] (bound at input.scala:11:20)
+  args: List[String] (bound at input.scala:9:20)
 
     case Right(_) => ???
                      ^
-src/test/resources/issue-10/input.scala:16: Found hole with type: Int
-  def foo:Int = ???
-                ^
