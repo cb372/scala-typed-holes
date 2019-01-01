@@ -55,7 +55,7 @@ you'll get warnings that look something like this:
 In sbt:
 
 ```
-addCompilerPlugin("com.github.cb372" % "scala-typed-holes" % "0.0.4" cross CrossVersion.full)
+addCompilerPlugin("com.github.cb372" % "scala-typed-holes" % "0.0.5" cross CrossVersion.full)
 ```
 
 The plugin is published for the following Scala versions:
