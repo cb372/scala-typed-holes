@@ -46,6 +46,7 @@ class TypedHolesComponent(plugin: Plugin, val global: Global, getLogLevel: () =>
 
   override val phaseName: String = "typed-holes"
   override val runsAfter: List[String] = List("typer")
+  override val runsBefore: List[String] = List("patmat")
 
   import global._
 
