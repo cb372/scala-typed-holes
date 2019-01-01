@@ -1,0 +1,14 @@
+src/test/resources/pattern-match-on-nested-case-class/input.scala:9:
+Found hole with type: Boolean
+Relevant bindings include
+  c: foo.Child (bound at input.scala:9:32)
+  d: foo.Child (bound at input.scala:9:55)
+  hmm: Int (bound at input.scala:9:42)
+  ok: String (bound at input.scala:9:47)
+  p: foo.Parent (bound at input.scala:9:10)
+  parent: foo.Parent (bound at input.scala:8:11)
+  wow: String (bound at input.scala:9:21)
+  yeah: Int (bound at input.scala:9:26)
+
+    case p @ Parent(wow, yeah, c @ Child(hmm, ok, _), d, Child(_, _, _)) => ???
+                                                                            ^

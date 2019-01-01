@@ -91,8 +91,10 @@ class TypedHolesComponent(plugin: Plugin, val global: Global, getLogLevel: () =>
           super.traverse(tree)
         case m @ Match(_, cases) =>
           cases foreach {
-            case CaseDef(_, _, Hole(holeInBody)) =>
+            case CaseDef(pat, _, Hole(holeInBody)) =>
+              bindings.push(gatherPatternBindings(pat))
               log(holeInBody.pos, m.tpe)
+              bindings.pop()
             case _ =>
           }
           super.traverse(tree)
@@ -102,12 +104,32 @@ class TypedHolesComponent(plugin: Plugin, val global: Global, getLogLevel: () =>
 
     }
 
+    private def gatherPatternBindings(tree: Tree): Map[TermName, Binding] = tree match {
+      case Bind(name, body) =>
+        Map(name.toTermName -> Binding(body.tpe, tree.pos)) ++ gatherPatternBindings(body)
+      case Apply(_, args) =>
+        val bindingss = args.map { arg =>
+          val namedArgBinding =
+            if (arg.symbol != NoSymbol)
+              Map(arg.symbol.name.toTermName -> Binding(arg.tpe, arg.pos))
+            else
+              Map.empty[TermName, Binding]
+
+          val bindingsInsideArg = gatherPatternBindings(arg)
+
+          namedArgBinding ++ bindingsInsideArg
+        }
+        bindingss.foldLeft(Map.empty[TermName, Binding])(_ ++ _)
+      case _ =>
+        Map.empty
+    }
+
     private def collectRelevantBindings: Map[TermName, Binding] =
       bindings.foldLeft(Map.empty[TermName, Binding]){ case (acc, level) => level ++ acc }
 
     private def log(pos: Position, tpe: Type): Unit = {
       val relevantBindingsMessages =
-        collectRelevantBindings.map {
+        collectRelevantBindings.toList.sortBy(_._1.toString).map {
           case (boundName, Binding(boundType, bindingPos)) => s"  $boundName: $boundType (bound at ${posSummary(bindingPos)})"
         }
           .mkString("\n")
