@@ -55,13 +55,13 @@ you'll get warnings that look something like this:
 In sbt:
 
 ```
-addCompilerPlugin("com.github.cb372" % "scala-typed-holes" % "0.0.5" cross CrossVersion.full)
+addCompilerPlugin("com.github.cb372" % "scala-typed-holes" % "0.0.6" cross CrossVersion.full)
 ```
 
 The plugin is published for the following Scala versions:
 
 * 2.11.12
-* 2.12.8
+* 2.12.1 to 2.12.8
 * 2.13.0-M5
 
 ## Changing the log level
