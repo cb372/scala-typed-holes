@@ -16,3 +16,9 @@ src/test/resources/val-var-def-one-liners/input.scala:13: Found hole with type: 
 src/test/resources/val-var-def-one-liners/input.scala:15: Found hole with type: Option[String]
   var hole6: Option[String] = ???
                               ^
+src/test/resources/val-var-def-one-liners/input.scala:17: Found hole with type: Nothing
+  val hole7 = { ??? }
+                ^
+src/test/resources/val-var-def-one-liners/input.scala:19: Found hole with type: () => Int
+  val hole8: () => Int = { ??? }
+                           ^

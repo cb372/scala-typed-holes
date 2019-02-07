@@ -65,6 +65,9 @@ class TypedHolesComponent(plugin: Plugin, val global: Global, getLogLevel: () =>
     override def traverse(tree: Tree): Unit = {
 
       tree match {
+        case ValDef(_, _, Hole(holeInLhs), tpt) =>
+          log(holeInLhs.pos, tpt.tpe)
+          super.traverse(tree)
         case ValDef(_, _, tpt, Hole(holeInRhs)) =>
           log(holeInRhs.pos, tpt.tpe)
           super.traverse(tree)

@@ -14,4 +14,8 @@ object Foo {
 
   var hole6: Option[String] = ???
 
+  val hole7 = { ??? }
+
+  val hole8: () => Int = { ??? }
+
 }
