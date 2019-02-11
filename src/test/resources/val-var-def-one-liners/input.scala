@@ -18,4 +18,12 @@ object Foo {
 
   val hole8: () => Int = { ??? }
 
+  val hole9 = { x: String => ??? }
+
+  val hole10: String => Int = { x => ??? }
+
+  val hole11 = { (a: Int, b: String) => ??? }
+
+  val hole12: (Int, String) => Int = { (a, b) => ??? }
+
 }
