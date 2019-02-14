@@ -30,7 +30,7 @@ Relevant bindings include
   val hole9 = { x: String => ??? }
                              ^
 src/test/resources/val-var-def-one-liners/input.scala:23:
-Found hole with type: Nothing
+Found hole with type: Int
 Relevant bindings include
   x: String (bound at input.scala:23:33)
 
@@ -45,10 +45,18 @@ Relevant bindings include
   val hole11 = { (a: Int, b: String) => ??? }
                                         ^
 src/test/resources/val-var-def-one-liners/input.scala:27:
-Found hole with type: Nothing
+Found hole with type: Int
 Relevant bindings include
   a: Int (bound at input.scala:27:41)
   b: String (bound at input.scala:27:44)
 
   val hole12: (Int, String) => Int = { (a, b) => ??? }
                                                  ^
+src/test/resources/val-var-def-one-liners/input.scala:29:
+Found hole with type: (String, Int)
+Relevant bindings include
+  a: Int (bound at input.scala:29:51)
+  b: String (bound at input.scala:29:54)
+
+  val hole13: (Int, String) => (String, Int) = { (a, b) => ??? }
+                                                           ^

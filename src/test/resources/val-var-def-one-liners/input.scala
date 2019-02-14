@@ -26,4 +26,6 @@ object Foo {
 
   val hole12: (Int, String) => Int = { (a, b) => ??? }
 
+  val hole13: (Int, String) => (String, Int) = { (a, b) => ??? }
+
 }
