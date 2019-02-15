@@ -28,4 +28,6 @@ object Foo {
 
   val hole13: (Int, String) => (String, Int) = { (a, b) => ??? }
 
+  val hole14: String => scala.util.Try[Int] = { s => scala.util.Try { s.toInt }.map { i => ??? } }
+
 }

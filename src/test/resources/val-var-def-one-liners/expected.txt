@@ -60,3 +60,11 @@ Relevant bindings include
 
   val hole13: (Int, String) => (String, Int) = { (a, b) => ??? }
                                                            ^
+src/test/resources/val-var-def-one-liners/input.scala:31:
+Found hole with type: scala.util.Try[Nothing]
+Relevant bindings include
+  i: Int (bound at input.scala:31:87)
+  s: String (bound at input.scala:31:49)
+
+  val hole14: String => scala.util.Try[Int] = { s => scala.util.Try { s.toInt }.map { i => ??? } }
+                                                                                           ^
