@@ -4,7 +4,7 @@ import xerial.sbt.Sonatype._
 scalacOptions ++= Seq("-deprecation")
 libraryDependencies ++= Seq(
   scalaOrganization.value % "scala-compiler" % scalaVersion.value,
-  "org.scalatest" %% "scalatest" % "3.1.0-SNAP11" % Test,
+  "org.scalatest" %% "scalatest" % "3.0.8" % Test,
   "commons-io" % "commons-io" % "2.6" % Test
 )
 
