@@ -1,4 +1,7 @@
+import sbt.Keys._
+import sbt._
 import ReleaseTransformations._
+import sbtrelease.Vcs
 import xerial.sbt.Sonatype._
 
 scalacOptions ++= Seq("-deprecation")
@@ -28,6 +31,32 @@ javaOptions in Test ++= {
   )
 }
 
+val `scala-typed-holes` = project.in(file("."))
+
+val docs = project
+  .in(file("generated-docs")) // important: it must not be the actual directory name, i.e. docs/
+  .settings(
+    scalaVersion := "2.12.8",
+    crossScalaVersions := Nil,
+    publishArtifact := false,
+    mdocVariables := Map("VERSION" -> version.value),
+    mdocOut := file(".")
+  )
+  .enablePlugins(MdocPlugin)
+
+val commitReadme: ReleaseStep = { state: State =>
+  Vcs.detect(file(".")).foreach { vcs =>
+    vcs.add("README.md") !! state.log
+    vcs.commit(
+      s"Update version in readme",
+      sign = true,
+      signOff = false
+    ) !! state.log
+  }
+
+  state
+}
+
 releaseProcess := Seq[ReleaseStep](
   checkSnapshotDependencies,
   inquireVersions,
@@ -36,6 +65,8 @@ releaseProcess := Seq[ReleaseStep](
   setReleaseVersion,
   commitReleaseVersion,
   tagRelease,
+  releaseStepInputTask(docs/mdoc),
+  commitReadme,
   publishArtifacts,
   setNextVersion,
   commitNextVersion,
