@@ -61,7 +61,7 @@ addCompilerPlugin("com.github.cb372" % "scala-typed-holes" % "0.0.10-SNAPSHOT" c
 The plugin is published for the following Scala versions:
 
 * 2.11.12
-* 2.12.1 to 2.12.9
+* 2.12.{8, 9}
 * 2.13.0
 
 ## Changing the log level
