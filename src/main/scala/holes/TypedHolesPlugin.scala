@@ -2,6 +2,7 @@ package holes
 
 import scala.collection.mutable
 import scala.tools.nsc.{Global, Phase}
+import scala.tools.nsc.transform.Transform
 import scala.tools.nsc.ast.TreeDSL
 import scala.tools.nsc.plugins.{Plugin, PluginComponent}
 
@@ -11,6 +12,8 @@ object LogLevel {
   case object Warn extends LogLevel
   case object Error extends LogLevel
 }
+
+case class HoleName(name: String)
 
 class TypedHolesPlugin(val global: Global) extends Plugin {
   val name = "typed-holes"
@@ -37,7 +40,47 @@ class TypedHolesPlugin(val global: Global) extends Plugin {
     }
   }
 
-  val components = List(new TypedHolesComponent(this, global, () => logLevel))
+  val components = List(
+    new NamedHolesComponent(this, global),
+    new TypedHolesComponent(this, global, () => logLevel)
+  )
+
+}
+
+class NamedHolesComponent(plugin: Plugin, val global: Global)
+  extends PluginComponent with TreeDSL with Transform {
+
+  override val phaseName: String = "named-holes"
+  override val runsAfter: List[String] = List("parser")
+  override val runsBefore: List[String] = List("namer")
+
+  import global._
+
+  override def newTransformer(unit: CompilationUnit): Transformer =
+    new NamedHolesTransformer(unit)
+
+  class NamedHolesTransformer(unit: CompilationUnit) extends Transformer {
+
+    object NamedHole {
+      val pattern = "^__([a-zA-Z0-9_]+)$".r
+
+      def unapply(name: Name): Option[String] =
+        pattern.unapplySeq(name.decoded.toString).flatMap(_.headOption)
+    }
+
+    override def transform(tree: Tree): Tree = {
+      val t = super.transform(tree)
+      t match {
+        case Ident(NamedHole(name)) =>
+          atPos(t.pos)(treeCopy.Ident(t, TermName("$qmark$qmark$qmark")))
+            .updateAttachment(HoleName(name))
+        case _ =>
+          t
+      }
+    }
+
+  }
+
 
 }
 
@@ -66,18 +109,18 @@ class TypedHolesComponent(plugin: Plugin, val global: Global, getLogLevel: () =>
 
       tree match {
         case ValDef(_, _, tpt, Hole(holeInRhs)) =>
-          log(holeInRhs.pos, tpt.tpe)
+          log(holeInRhs, tpt.tpe)
           super.traverse(tree)
         case ValDef(_, _, tpt, Function(vparams, Hole(body))) =>
           bindings.push(vparams.map(param => (param.name, Binding(param.tpt.tpe, param.pos))).toMap)
-          log(body.pos, tpt.tpe.typeArgs.last)
+          log(body, tpt.tpe.typeArgs.last)
           super.traverse(tree)
           bindings.pop()
         case ValDef(_, _, _, _) =>
           super.traverse(tree)
         case DefDef(_, _, _, vparamss, tpt, Hole(holeInRhs)) =>
           bindings.push(vparamss.flatten.map(param => (param.name, Binding(param.tpt.tpe, param.pos))).toMap)
-          log(holeInRhs.pos, tpt.tpe)
+          log(holeInRhs, tpt.tpe)
           super.traverse(tree)
           bindings.pop()
         case DefDef(_, _, _, vparamss, _, _) =>
@@ -89,20 +132,20 @@ class TypedHolesComponent(plugin: Plugin, val global: Global, getLogLevel: () =>
           super.traverse(tree)
           bindings.pop()
         case If(_, Hole(a), Hole(b)) =>
-          log(a.pos, tree.tpe)
-          log(b.pos, tree.tpe)
+          log(a, tree.tpe)
+          log(b, tree.tpe)
           super.traverse(tree)
         case If(_, Hole(a), _) =>
-          log(a.pos, tree.tpe)
+          log(a, tree.tpe)
           super.traverse(tree)
         case If(_, _, Hole(b)) =>
-          log(b.pos, tree.tpe)
+          log(b, tree.tpe)
           super.traverse(tree)
         case m @ Match(_, cases) =>
           cases foreach {
             case CaseDef(pat, _, Hole(holeInBody)) =>
               bindings.push(gatherPatternBindings(pat))
-              log(holeInBody.pos, m.tpe)
+              log(holeInBody, m.tpe)
               bindings.pop()
             case _ =>
           }
@@ -111,7 +154,7 @@ class TypedHolesComponent(plugin: Plugin, val global: Global, getLogLevel: () =>
           args foreach {
             case Function(vparams, Hole(body)) =>
               bindings.push(vparams.map(param => (param.name, Binding(param.tpt.tpe, param.pos))).toMap)
-              log(body.pos, a.tpe)
+              log(body, a.tpe)
               bindings.pop()
             case _ =>
           }
@@ -145,25 +188,27 @@ class TypedHolesComponent(plugin: Plugin, val global: Global, getLogLevel: () =>
     private def collectRelevantBindings: Map[TermName, Binding] =
       bindings.foldLeft(Map.empty[TermName, Binding]){ case (acc, level) => level ++ acc }
 
-    private def log(pos: Position, tpe: Type): Unit = {
+    private def log(holeTree: Tree, tpe: Type): Unit = {
       val relevantBindingsMessages =
         collectRelevantBindings.toList.sortBy(_._1.toString).map {
           case (boundName, Binding(boundType, bindingPos)) => s"  $boundName: $boundType (bound at ${posSummary(bindingPos)})"
         }
           .mkString("\n")
+      val holeName = holeTree.attachments.get[HoleName]
+      val holeNameMsg = holeName.fold("")(x => s"'${x.name}' ")
       val message =
         if (!relevantBindingsMessages.isEmpty)
           s"""
-             |Found hole with type: $tpe
+             |Found hole ${holeNameMsg}with type: $tpe
              |Relevant bindings include
              |$relevantBindingsMessages
            """.stripMargin
         else
           s"Found hole with type: $tpe"
       getLogLevel() match {
-        case LogLevel.Info => inform(pos, message)
-        case LogLevel.Warn => warning(pos, message)
-        case LogLevel.Error => globalError(pos, message)
+        case LogLevel.Info => inform(holeTree.pos, message)
+        case LogLevel.Warn => warning(holeTree.pos, message)
+        case LogLevel.Error => globalError(holeTree.pos, message)
       }
     }
 
