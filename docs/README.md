@@ -50,6 +50,38 @@ you'll get warnings that look something like this:
 [warn]               ^
 ```
 
+## Named holes
+
+The plugin also supports named holes. Instead of using `???`, you can give
+custom names to your holes.
+
+For example, code like this
+
+```scala
+def hello(args: Array[String]): Option[Result] = Foo.doStuff(args) match {
+  case Left(error)  => __left
+  case Right(x)     => __right
+}
+```
+
+will result in warnings like this
+
+```
+Found hole 'left' with type: Option[Result]
+Relevant bindings include
+  args: Array[String] (bound at input.scala:11:13)
+  error: String (bound at input.scala:12:15)
+
+    case Left(error)  => __left
+                         ^
+```
+
+Named holes must start with a double underscore.
+
+Warning: if you happen to use a naming convention that includes double
+underscores (which is pretty rare in Scala), this plugin will probably trash
+your code!
+
 ## How to use
 
 In sbt:

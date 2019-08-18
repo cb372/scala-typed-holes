@@ -1,14 +1,16 @@
-object CaseApp {
-  def parse[A](args: Seq[String]): Either[String, A] = Left("nope!")
+case class Result()
+
+object Foo {
+
+  def doStuff(args: Array[String]): Either[String, Int] = Left("nope!")
+
 }
 
-case class Ops()
+object Bar {
 
-object Main {
-
-  def parseCmdLine(args: List[String]): Option[Ops] = CaseApp.parse[Ops](args.toSeq) match {
-    case Left(l)  => __left
-    case Right(r) => __right
+  def hello(args: Array[String]): Option[Result] = Foo.doStuff(args) match {
+    case Left(error)  => __left
+    case Right(x)     => __right
   }
 
 }
