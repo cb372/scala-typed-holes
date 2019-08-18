@@ -1,0 +1,16 @@
+src/test/resources/named-holes/input.scala:12:
+Found hole 'left' with type: Option[Result]
+Relevant bindings include
+  args: Array[String] (bound at input.scala:11:13)
+  error: String (bound at input.scala:12:15)
+
+    case Left(error)  => __left
+                         ^
+src/test/resources/named-holes/input.scala:13:
+Found hole 'right' with type: Option[Result]
+Relevant bindings include
+  args: Array[String] (bound at input.scala:11:13)
+  x: Int (bound at input.scala:13:16)
+
+    case Right(x)     => __right
+                         ^
