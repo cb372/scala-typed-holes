@@ -36,7 +36,7 @@ val `scala-typed-holes` = project.in(file("."))
 val docs = project
   .in(file("generated-docs")) // important: it must not be the actual directory name, i.e. docs/
   .settings(
-    scalaVersion := "2.12.9",
+    scalaVersion := "2.12.10",
     crossScalaVersions := Nil,
     publishArtifact := false,
     mdocVariables := Map("VERSION" -> version.value),
