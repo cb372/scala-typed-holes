@@ -12,7 +12,7 @@ class TypedHolesPlugin(val global: Global) extends Plugin {
 
   private var logLevel: LogLevel = LogLevel.Warn
 
-  override def processOptions(options: List[String], error: String => Unit): Unit = {
+  override def init(options: List[String], error: String => Unit): Boolean = {
     for (option <- options) {
       if (option.startsWith("log-level:")) {
         option.substring("log-level:".length).toLowerCase match {
@@ -29,6 +29,7 @@ class TypedHolesPlugin(val global: Global) extends Plugin {
         error(s"Unrecognised option: $option")
       }
     }
+    true
   }
 
   val components = List(
