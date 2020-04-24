@@ -4,6 +4,22 @@ import ReleaseTransformations._
 import sbtrelease.Vcs
 import xerial.sbt.Sonatype._
 
+ThisBuild / scalaVersion := "2.13.2"
+ThisBuild / crossScalaVersions := Seq(
+  "2.11.11",
+  "2.12.8",
+  "2.12.9",
+  "2.12.10",
+  "2.12.11",
+  "2.13.0",
+  "2.13.1",
+  "2.13.2"
+)
+ThisBuild / githubWorkflowJavaVersions := Seq(
+  "adopt@1.8",
+  "adopt@1.12"
+)
+
 scalacOptions ++= Seq("-deprecation")
 libraryDependencies ++= Seq(
   scalaOrganization.value % "scala-compiler" % scalaVersion.value,
@@ -36,7 +52,6 @@ val `scala-typed-holes` = project.in(file("."))
 val docs = project
   .in(file("generated-docs")) // important: it must not be the actual directory name, i.e. docs/
   .settings(
-    scalaVersion := "2.12.10",
     crossScalaVersions := Nil,
     publishArtifact := false,
     mdocVariables := Map("VERSION" -> version.value),
