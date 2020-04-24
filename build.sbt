@@ -1,7 +1,5 @@
 import sbt.Keys._
 import sbt._
-import ReleaseTransformations._
-import sbtrelease.Vcs
 import xerial.sbt.Sonatype._
 
 ThisBuild / scalaVersion := "2.13.2"
@@ -30,8 +28,6 @@ libraryDependencies ++= Seq(
 organization := "com.github.cb372"
 publishTo := sonatypePublishTo.value
 crossVersion := CrossVersion.full
-releaseCrossBuild := true
-releasePublishArtifactsAction := PgpKeys.publishSigned.value
 pomIncludeRepository := { _ => false }
 publishMavenStyle := true
 licenses := Seq("Apache License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.html"))
@@ -58,33 +54,3 @@ val docs = project
     mdocOut := file(".")
   )
   .enablePlugins(MdocPlugin)
-
-val commitReadme: ReleaseStep = { state: State =>
-  Vcs.detect(file(".")).foreach { vcs =>
-    vcs.add("README.md") !! state.log
-    vcs.commit(
-      s"Update version in readme",
-      sign = true,
-      signOff = false
-    ) !! state.log
-  }
-
-  state
-}
-
-releaseProcess := Seq[ReleaseStep](
-  checkSnapshotDependencies,
-  inquireVersions,
-  runClean,
-  runTest,
-  setReleaseVersion,
-  commitReleaseVersion,
-  tagRelease,
-  releaseStepInputTask(docs/mdoc),
-  commitReadme,
-  publishArtifacts,
-  setNextVersion,
-  commitNextVersion,
-  releaseStepCommand("sonatypeReleaseAll"),
-  pushChanges
-)
