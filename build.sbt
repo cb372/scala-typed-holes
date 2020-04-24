@@ -14,18 +14,8 @@ ThisBuild / crossScalaVersions := Seq(
 )
 ThisBuild / githubWorkflowJavaVersions := Seq(
   "adopt@1.8",
-  "adopt@1.9",
-  "adopt@1.10",
-  "adopt@1.11",
-  //"adopt@1.12",
-  //"adopt@1.13",
-  "adopt@1.14",
-  "openjdk@1.9",
-  "openjdk@1.10",
-  "openjdk@1.11",
-  //"openjdk@1.12",
-  //"openjdk@1.13",
-  "openjdk@1.14"
+  "adopt@1.13",
+  "adopt@1.14"
 )
 ThisBuild / githubWorkflowBuild := WorkflowStep.Sbt(List("test", "docs/mdoc"))
 
