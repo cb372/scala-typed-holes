@@ -23,7 +23,7 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         scala: [2.13.2]
-        java: [adopt@1.8, adopt@1.9, adopt@1.10, adopt@1.11, adopt@1.12, adopt@1.13, adopt@1.14, openjdk@1.9, openjdk@1.10, openjdk@1.11, openjdk@1.12, openjdk@1.13, openjdk@1.14]
+        java: [adopt@1.8, adopt@1.9, adopt@1.10, adopt@1.11, adopt@1.14, openjdk@1.9, openjdk@1.10, openjdk@1.11, openjdk@1.14]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout current branch (fast)
