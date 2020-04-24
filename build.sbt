@@ -1,6 +1,5 @@
 import sbt.Keys._
 import sbt._
-import xerial.sbt.Sonatype._
 
 ThisBuild / scalaVersion := "2.13.2"
 ThisBuild / crossScalaVersions := Seq(
@@ -15,7 +14,7 @@ ThisBuild / crossScalaVersions := Seq(
 )
 ThisBuild / githubWorkflowJavaVersions := Seq(
   "adopt@1.8",
-  "adopt@1.12"
+  //"adopt@1.12"
 )
 
 scalacOptions ++= Seq("-deprecation")
@@ -26,12 +25,10 @@ libraryDependencies ++= Seq(
 )
 
 organization := "com.github.cb372"
-publishTo := sonatypePublishTo.value
 crossVersion := CrossVersion.full
 pomIncludeRepository := { _ => false }
 publishMavenStyle := true
 licenses := Seq("Apache License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.html"))
-sonatypeProjectHosting := Some(GitHubHosting("cb372", "scala-typed-holes", "chris.birchall@gmail.com"))
 
 fork in Test := true
 javaOptions in Test ++= {
