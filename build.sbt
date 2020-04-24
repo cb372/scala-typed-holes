@@ -3,7 +3,7 @@ import sbt._
 
 ThisBuild / scalaVersion := "2.13.2"
 ThisBuild / crossScalaVersions := Seq(
-  "2.11.11",
+  "2.11.12",
   "2.12.8",
   "2.12.9",
   "2.12.10",

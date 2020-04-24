@@ -22,7 +22,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        scala: [2.11.11, 2.12.8, 2.12.9, 2.12.10, 2.12.11, 2.13.0, 2.13.1, 2.13.2]
+        scala: [2.11.12, 2.12.8, 2.12.9, 2.12.10, 2.12.11, 2.13.0, 2.13.1, 2.13.2]
         java: [adopt@1.8, adopt@1.11]
     runs-on: ${{ matrix.os }}
     steps:
@@ -154,10 +154,10 @@ jobs:
           path: ~/.sbt
           key: ${{ runner.os }}-sbt-cache-${{ hashFiles('**/*.sbt') }}-${{ hashFiles('project/build.properties') }}
 
-      - name: Download target directory 'target' (2.11.11)
+      - name: Download target directory 'target' (2.11.12)
         uses: actions/download-artifact@v1
         with:
-          name: target-${{ matrix.os }}-2.11.11-${{ matrix.java }}-target
+          name: target-${{ matrix.os }}-2.11.12-${{ matrix.java }}-target
           path: target
 
       - name: Download target directory 'target' (2.12.8)
@@ -202,10 +202,10 @@ jobs:
           name: target-${{ matrix.os }}-2.13.2-${{ matrix.java }}-target
           path: target
 
-      - name: Download target directory 'generated-docs/target' (2.11.11)
+      - name: Download target directory 'generated-docs/target' (2.11.12)
         uses: actions/download-artifact@v1
         with:
-          name: target-${{ matrix.os }}-2.11.11-${{ matrix.java }}-generated-docs_target
+          name: target-${{ matrix.os }}-2.11.12-${{ matrix.java }}-generated-docs_target
           path: generated-docs/target
 
       - name: Download target directory 'generated-docs/target' (2.12.8)
