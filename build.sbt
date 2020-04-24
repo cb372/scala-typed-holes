@@ -16,6 +16,7 @@ ThisBuild / githubWorkflowJavaVersions := Seq(
   "adopt@1.8",
   //"adopt@1.12"
 )
+ThisBuild / githubWorkflowBuild := WorkflowStep.Sbt(List("test", "docs/mdoc"))
 
 scalacOptions ++= Seq("-deprecation")
 libraryDependencies ++= Seq(

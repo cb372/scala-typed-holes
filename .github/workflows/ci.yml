@@ -76,8 +76,7 @@ jobs:
       - name: Check that workflows are up to date
         run: sbt ++${{ matrix.scala }} githubWorkflowCheck
 
-      - name: Build project
-        run: sbt ++${{ matrix.scala }} test
+      - run: sbt ++${{ matrix.scala }} test docs/mdoc
 
       - name: Upload target directory 'target' (${{ matrix.scala }})
         uses: actions/upload-artifact@v1
