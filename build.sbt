@@ -3,13 +3,13 @@ import sbt._
 
 ThisBuild / scalaVersion := "2.13.2"
 ThisBuild / crossScalaVersions := Seq(
-  "2.11.11",
-  "2.12.8",
-  "2.12.9",
-  "2.12.10",
-  "2.12.11",
-  "2.13.0",
-  "2.13.1",
+  //"2.11.11",
+  //"2.12.8",
+  //"2.12.9",
+  //"2.12.10",
+  //"2.12.11",
+  //"2.13.0",
+  //"2.13.1",
   "2.13.2"
 )
 ThisBuild / githubWorkflowJavaVersions := Seq(

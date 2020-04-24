@@ -22,7 +22,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        scala: [2.11.11, 2.12.8, 2.12.9, 2.12.10, 2.12.11, 2.13.0, 2.13.1, 2.13.2]
+        scala: [2.13.2]
         java: [adopt@1.8, adopt@1.9, adopt@1.10, adopt@1.11, adopt@1.12, adopt@1.13, adopt@1.14, openjdk@1.9, openjdk@1.10, openjdk@1.11, openjdk@1.12, openjdk@1.13, openjdk@1.14]
     runs-on: ${{ matrix.os }}
     steps:
@@ -154,95 +154,11 @@ jobs:
           path: ~/.sbt
           key: ${{ runner.os }}-sbt-cache-${{ hashFiles('**/*.sbt') }}-${{ hashFiles('project/build.properties') }}
 
-      - name: Download target directory 'target' (2.11.11)
-        uses: actions/download-artifact@v1
-        with:
-          name: target-${{ matrix.os }}-2.11.11-${{ matrix.java }}-target
-          path: target
-
-      - name: Download target directory 'target' (2.12.8)
-        uses: actions/download-artifact@v1
-        with:
-          name: target-${{ matrix.os }}-2.12.8-${{ matrix.java }}-target
-          path: target
-
-      - name: Download target directory 'target' (2.12.9)
-        uses: actions/download-artifact@v1
-        with:
-          name: target-${{ matrix.os }}-2.12.9-${{ matrix.java }}-target
-          path: target
-
-      - name: Download target directory 'target' (2.12.10)
-        uses: actions/download-artifact@v1
-        with:
-          name: target-${{ matrix.os }}-2.12.10-${{ matrix.java }}-target
-          path: target
-
-      - name: Download target directory 'target' (2.12.11)
-        uses: actions/download-artifact@v1
-        with:
-          name: target-${{ matrix.os }}-2.12.11-${{ matrix.java }}-target
-          path: target
-
-      - name: Download target directory 'target' (2.13.0)
-        uses: actions/download-artifact@v1
-        with:
-          name: target-${{ matrix.os }}-2.13.0-${{ matrix.java }}-target
-          path: target
-
-      - name: Download target directory 'target' (2.13.1)
-        uses: actions/download-artifact@v1
-        with:
-          name: target-${{ matrix.os }}-2.13.1-${{ matrix.java }}-target
-          path: target
-
       - name: Download target directory 'target' (2.13.2)
         uses: actions/download-artifact@v1
         with:
           name: target-${{ matrix.os }}-2.13.2-${{ matrix.java }}-target
           path: target
-
-      - name: Download target directory 'generated-docs/target' (2.11.11)
-        uses: actions/download-artifact@v1
-        with:
-          name: target-${{ matrix.os }}-2.11.11-${{ matrix.java }}-generated-docs_target
-          path: generated-docs/target
-
-      - name: Download target directory 'generated-docs/target' (2.12.8)
-        uses: actions/download-artifact@v1
-        with:
-          name: target-${{ matrix.os }}-2.12.8-${{ matrix.java }}-generated-docs_target
-          path: generated-docs/target
-
-      - name: Download target directory 'generated-docs/target' (2.12.9)
-        uses: actions/download-artifact@v1
-        with:
-          name: target-${{ matrix.os }}-2.12.9-${{ matrix.java }}-generated-docs_target
-          path: generated-docs/target
-
-      - name: Download target directory 'generated-docs/target' (2.12.10)
-        uses: actions/download-artifact@v1
-        with:
-          name: target-${{ matrix.os }}-2.12.10-${{ matrix.java }}-generated-docs_target
-          path: generated-docs/target
-
-      - name: Download target directory 'generated-docs/target' (2.12.11)
-        uses: actions/download-artifact@v1
-        with:
-          name: target-${{ matrix.os }}-2.12.11-${{ matrix.java }}-generated-docs_target
-          path: generated-docs/target
-
-      - name: Download target directory 'generated-docs/target' (2.13.0)
-        uses: actions/download-artifact@v1
-        with:
-          name: target-${{ matrix.os }}-2.13.0-${{ matrix.java }}-generated-docs_target
-          path: generated-docs/target
-
-      - name: Download target directory 'generated-docs/target' (2.13.1)
-        uses: actions/download-artifact@v1
-        with:
-          name: target-${{ matrix.os }}-2.13.1-${{ matrix.java }}-generated-docs_target
-          path: generated-docs/target
 
       - name: Download target directory 'generated-docs/target' (2.13.2)
         uses: actions/download-artifact@v1
