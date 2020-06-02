@@ -43,33 +43,3 @@ val docs = project
     mdocOut := file(".")
   )
   .enablePlugins(MdocPlugin)
-
-//val commitReadme: ReleaseStep = { state: State =>
-  //Vcs.detect(file(".")).foreach { vcs =>
-    //vcs.add("README.md") !! state.log
-    //vcs.commit(
-      //s"Update version in readme",
-      //sign = true,
-      //signOff = false
-    //) !! state.log
-  //}
-
-  //state
-//}
-
-//releaseProcess := Seq[ReleaseStep](
-  //checkSnapshotDependencies,
-  //inquireVersions,
-  //runClean,
-  //runTest,
-  //setReleaseVersion,
-  //commitReleaseVersion,
-  //tagRelease,
-  //releaseStepInputTask(docs/mdoc),
-  //commitReadme,
-  //publishArtifacts,
-  //setNextVersion,
-  //commitNextVersion,
-  //releaseStepCommand("sonatypeReleaseAll"),
-  //pushChanges
-//)
