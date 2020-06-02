@@ -1,9 +1,7 @@
 import sbt.Keys._
 import sbt._
-import ReleaseTransformations._
-import sbtrelease.Vcs
-import xerial.sbt.Sonatype._
 
+crossVersion := CrossVersion.full
 scalacOptions ++= Seq("-deprecation")
 libraryDependencies ++= Seq(
   scalaOrganization.value % "scala-compiler" % scalaVersion.value,
@@ -12,14 +10,15 @@ libraryDependencies ++= Seq(
 )
 
 organization := "com.github.cb372"
-publishTo := sonatypePublishTo.value
-crossVersion := CrossVersion.full
-releaseCrossBuild := true
-releasePublishArtifactsAction := PgpKeys.publishSigned.value
-pomIncludeRepository := { _ => false }
-publishMavenStyle := true
 licenses := Seq("Apache License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.html"))
-sonatypeProjectHosting := Some(GitHubHosting("cb372", "scala-typed-holes", "chris.birchall@gmail.com"))
+developers := List(
+  Developer(
+    "cb372",
+    "Chris Birchall",
+    "chris.birchall@gmail.com",
+    url("https://twitter.com/cbirchall")
+  )
+)
 
 fork in Test := true
 javaOptions in Test ++= {
@@ -39,37 +38,38 @@ val docs = project
     scalaVersion := "2.12.10",
     crossScalaVersions := Nil,
     publishArtifact := false,
+    skip in publish := true,
     mdocVariables := Map("VERSION" -> version.value),
     mdocOut := file(".")
   )
   .enablePlugins(MdocPlugin)
 
-val commitReadme: ReleaseStep = { state: State =>
-  Vcs.detect(file(".")).foreach { vcs =>
-    vcs.add("README.md") !! state.log
-    vcs.commit(
-      s"Update version in readme",
-      sign = true,
-      signOff = false
-    ) !! state.log
-  }
+//val commitReadme: ReleaseStep = { state: State =>
+  //Vcs.detect(file(".")).foreach { vcs =>
+    //vcs.add("README.md") !! state.log
+    //vcs.commit(
+      //s"Update version in readme",
+      //sign = true,
+      //signOff = false
+    //) !! state.log
+  //}
 
-  state
-}
+  //state
+//}
 
-releaseProcess := Seq[ReleaseStep](
-  checkSnapshotDependencies,
-  inquireVersions,
-  runClean,
-  runTest,
-  setReleaseVersion,
-  commitReleaseVersion,
-  tagRelease,
-  releaseStepInputTask(docs/mdoc),
-  commitReadme,
-  publishArtifacts,
-  setNextVersion,
-  commitNextVersion,
-  releaseStepCommand("sonatypeReleaseAll"),
-  pushChanges
-)
+//releaseProcess := Seq[ReleaseStep](
+  //checkSnapshotDependencies,
+  //inquireVersions,
+  //runClean,
+  //runTest,
+  //setReleaseVersion,
+  //commitReleaseVersion,
+  //tagRelease,
+  //releaseStepInputTask(docs/mdoc),
+  //commitReadme,
+  //publishArtifacts,
+  //setNextVersion,
+  //commitNextVersion,
+  //releaseStepCommand("sonatypeReleaseAll"),
+  //pushChanges
+//)

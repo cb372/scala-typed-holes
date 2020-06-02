@@ -11,6 +11,25 @@ scala:
 jdk:
   - openjdk8
   - openjdk12
+before_install:
+  - git fetch --tags
+stages:
+  - name: test
+  - name: release
+    #if: ((branch = master AND type = push) OR (tag IS present)) AND NOT fork
+jobs:
+  include:
+    - stage: test
+      name: Test
+      script: sbt test
+    - stage: release
+      scala: 2.12.10
+      jdk: openjdk8
+      name: Release
+      script:
+        - sbt ci-release
+        # TODO update version in docs
+
 cache:
   directories:
   - $HOME/.cache/coursier
