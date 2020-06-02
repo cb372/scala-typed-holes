@@ -10,6 +10,7 @@ libraryDependencies ++= Seq(
 )
 
 organization := "com.github.cb372"
+homepage := Some(url("https://github.com/cb372/scala-typed-holes"))
 licenses := Seq("Apache License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.html"))
 developers := List(
   Developer(
