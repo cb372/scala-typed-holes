@@ -87,7 +87,7 @@ your code!
 In sbt:
 
 ```
-addCompilerPlugin("com.github.cb372" % "scala-typed-holes" % "0.1.3" cross CrossVersion.full)
+addCompilerPlugin("com.github.cb372" % "scala-typed-holes" % "0.1.3.3" cross CrossVersion.full)
 ```
 
 The plugin is published for the following Scala versions:
