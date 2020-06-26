@@ -8,6 +8,7 @@ scala:
   - 2.13.0
   - 2.13.1
   - 2.13.2
+  - 2.13.3
 jdk:
   - openjdk8
   - openjdk12
