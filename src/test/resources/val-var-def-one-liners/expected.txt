@@ -77,9 +77,9 @@ Relevant bindings include
   def hole15(x: String) = x.contains(???)
                                      ^
 src/test/resources/val-var-def-one-liners/input.scala:35:
-Found hole with type: Char => Boolean
+Found hole with type: A => Boolean
 Relevant bindings include
-  x: String (bound at input.scala:35:14)
+  xs: List[Int] (bound at input.scala:35:14)
 
-  def hole16(x: String) = x.exists(???)
-                                   ^
+  def hole16(xs: List[Int]) = xs.exists(???)
+                                        ^

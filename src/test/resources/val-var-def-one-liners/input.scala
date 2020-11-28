@@ -32,6 +32,6 @@ object Foo {
 
   def hole15(x: String) = x.contains(???)
 
-  def hole16(x: String) = x.exists(???)
+  def hole16(xs: List[Int]) = xs.exists(???)
 
 }
