@@ -71,11 +71,14 @@ class TypedHolesComponent(plugin: Plugin, val global: Global, getLogLevel: () =>
             case _ =>
           }
           super.traverse(tree)
-        case a @ Apply(_, args) =>
-          args foreach {
-            case Function(vparams, Hole(body)) =>
+        case a @ Apply(fn, args) =>
+          val paramTypes = fn.symbol.paramss.flatten.map(_.tpe)
+          paramTypes.zip(args).foreach {
+            case (paramTpe, Hole(body)) =>
+              log(body, paramTpe)
+            case (paramTpe, Function(vparams, Hole(body))) =>
               bindings.push(vparams.map(param => (param.name, Binding(param.tpt.tpe, param.pos))).toMap)
-              log(body, a.tpe)
+              log(body, paramTpe)
               bindings.pop()
             case _ =>
           }

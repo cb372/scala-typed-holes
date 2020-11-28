@@ -28,6 +28,10 @@ object Foo {
 
   val hole13: (Int, String) => (String, Int) = { (a, b) => ??? }
 
-  val hole14: String => Int = { s => s.foldLeft(0) { (a, c) => ??? } }
+  val hole14: String => Int = { s => s.foldLeft[Double](0.0) { (a, c) => ??? }.toInt }
+
+  def hole15(x: String) = x.contains(???)
+
+  def hole16(x: String) = x.exists(???)
 
 }
