@@ -1,6 +1,17 @@
 import sbt.Keys._
 import sbt._
 
+scalaVersion := "2.13.4"
+crossScalaVersions := List(
+  "2.11.12",
+  "2.12.12",
+  "2.13.0",
+  "2.13.1",
+  "2.13.2",
+  "2.13.3",
+  "2.13.4",
+)
+
 crossVersion := CrossVersion.full
 scalacOptions ++= Seq("-deprecation")
 libraryDependencies ++= Seq(
