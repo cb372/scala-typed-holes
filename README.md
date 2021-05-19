@@ -87,14 +87,14 @@ your code!
 In sbt:
 
 ```
-addCompilerPlugin("com.github.cb372" % "scala-typed-holes" % "0.1.8" cross CrossVersion.full)
+addCompilerPlugin("com.github.cb372" % "scala-typed-holes" % "0.1.9" cross CrossVersion.full)
 ```
 
 The plugin is published for the following Scala versions:
 
 * 2.11.12
 * 2.12.{12, 13}
-* 2.13.{0, 1, 2, 3, 4, 5}
+* 2.13.{0, 1, 2, 3, 4, 5, 6}
 
 ## Changing the log level
 
