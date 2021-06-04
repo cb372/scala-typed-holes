@@ -61,11 +61,25 @@ Relevant bindings include
   val hole13: (Int, String) => (String, Int) = { (a, b) => ??? }
                                                            ^
 src/test/resources/val-var-def-one-liners/input.scala:31:
-Found hole with type: Int
+Found hole with type: B
 Relevant bindings include
-  a: Int (bound at input.scala:31:55)
-  c: Char (bound at input.scala:31:58)
+  a: Double (bound at input.scala:31:65)
+  c: Char (bound at input.scala:31:68)
   s: String (bound at input.scala:31:33)
 
-  val hole14: String => Int = { s => s.foldLeft(0) { (a, c) => ??? } }
-                                                               ^
+  val hole14: String => Int = { s => s.foldLeft[Double](0.0) { (a, c) => ??? }.toInt }
+                                                                         ^
+src/test/resources/val-var-def-one-liners/input.scala:33:
+Found hole with type: CharSequence
+Relevant bindings include
+  x: String (bound at input.scala:33:14)
+
+  def hole15(x: String) = x.contains(???)
+                                     ^
+src/test/resources/val-var-def-one-liners/input.scala:35:
+Found hole with type: A => Boolean
+Relevant bindings include
+  xs: List[Int] (bound at input.scala:35:14)
+
+  def hole16(xs: List[Int]) = xs.exists(???)
+                                        ^
