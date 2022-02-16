@@ -54,7 +54,7 @@ val docs = project
     scalaVersion := "2.12.10",
     crossScalaVersions := Nil,
     publishArtifact := false,
-    skip in publish := true,
+    publish / skip := true,
     mdocVariables := Map("VERSION" -> version.value),
     mdocOut := file(".")
   )
