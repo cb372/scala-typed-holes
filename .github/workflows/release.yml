@@ -1,0 +1,63 @@
+name: Release
+
+on:
+  push:
+    branches: [master, main]
+    tags: ["v*"]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Java and Scala
+        uses: olafurpg/setup-scala@v13
+
+      - name: Cache sbt
+        uses: coursier/cache-action@v6
+
+      - name: Publish
+        run: sbt ci-release
+        env:
+          PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
+          PGP_SECRET: ${{ secrets.PGP_SECRET }}
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+
+  update-readme:
+    if: github.ref_type == 'tag'
+    needs: publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the tag
+        uses: actions/checkout@v2
+
+      - name: Setup Java and Scala
+        uses: olafurpg/setup-scala@v13
+
+      - name: Cache sbt
+        uses: coursier/cache-action@v6
+
+      - name: Generate readme
+        run: sbt docs/mdoc
+
+      - name: Checkout the main branch into a subdirectory
+        uses: actions/checkout@v2
+        with:
+          ref: master
+          path: './main'
+
+      - name: Copy generated readme to main branch
+        run: cp README.md main
+
+      - name: Commit and push readme
+        uses: EndBug/add-and-commit@v8
+        with:
+          cwd: './main'
+          add: 'README.md'
+          default_author: github_actions
+          message: 'Regenerate readme'
+
+
