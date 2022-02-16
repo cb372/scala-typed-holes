@@ -2,11 +2,9 @@ name: CI
 
 on:
   push:
-    branches:
-      - master
+    branches: [master, main]
   pull_request:
-    branches:
-      - master
+    branches: [master, main]
 
 jobs:
   main:
@@ -31,18 +29,18 @@ jobs:
           - 1.11
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout current branch
+      - name: Checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
       - name: Setup Java and Scala
-        uses: olafurpg/setup-scala@v10
+        uses: olafurpg/setup-scala@v13
         with:
           java-version: adopt@${{ matrix.java }}
 
       - name: Cache sbt
-        uses: coursier/cache-action@v3
+        uses: coursier/cache-action@v6
 
       - name: Test
         run: |

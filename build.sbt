@@ -36,9 +36,9 @@ developers := List(
   )
 )
 
-fork in Test := true
-javaOptions in Test ++= {
-  val jar = (packageBin in Compile).value
+Test / fork := true
+Test / javaOptions ++= {
+  val jar = (Compile / packageBin).value
   val scalacClasspath = scalaInstance.value.allJars.mkString(java.io.File.pathSeparator)
   Seq(
     s"-Dplugin.jar=${jar.getAbsolutePath}",
