@@ -4,9 +4,7 @@ import sbt._
 scalaVersion := "2.13.4"
 crossScalaVersions := List(
   "2.11.12",
-  "2.12.12",
-  "2.12.13",
-  "2.12.14",
+  "2.12.15",
   "2.13.0",
   "2.13.1",
   "2.13.2",
@@ -14,7 +12,8 @@ crossScalaVersions := List(
   "2.13.4",
   "2.13.5",
   "2.13.6",
-  "2.13.7"
+  "2.13.7",
+  "2.13.8"
 )
 
 crossVersion := CrossVersion.full
