@@ -1,0 +1,3 @@
+src/test/resources/simple/input.scala:4: Found hole with type: Int
+  val i: Int = ???
+               ^

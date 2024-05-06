@@ -1,0 +1,9 @@
+-- Info: src/test/resources/polymorphic/input.scala:7:9 ------------------------
+7 |    else ???
+  |         ^^^
+  |
+  |         Found hole with type: String
+  |         Relevant bindings include
+  |           x: A (bound at input.scala:4:21)
+  |           y: A (bound at input.scala:4:27)
+  |

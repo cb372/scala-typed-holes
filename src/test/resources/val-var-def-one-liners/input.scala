@@ -18,7 +18,7 @@ object Foo {
 
   val hole8: () => Int = { ??? }
 
-  val hole9 = { x: String => ??? }
+  val hole9 = { (x: String) => ??? }
 
   val hole10: String => Int = { x => ??? }
 
