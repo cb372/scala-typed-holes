@@ -6,6 +6,7 @@ import java.nio.file.{Files, Path, Paths}
 import org.apache.commons.io.FileUtils
 import org.scalatest.{BeforeAndAfterAll}
 import org.scalatest.funspec.AnyFunSpec
+import buildinfo.BuildInfo.scalaVersion
 
 import scala.sys.process._
 
@@ -14,7 +15,7 @@ class IntegrationTests extends AnyFunSpec with BeforeAndAfterAll {
   private val pluginJar = sys.props("plugin.jar")
   private val scalacClasspath = sys.props("scalac.classpath")
   private val targetDir = Paths.get("target/integration-tests")
-  private def isScala3 = buildinfo.BuildInfo.scalaVersion.startsWith("3")
+  private def isScala3 = scalaVersion.startsWith("3")
 
   private def runScalac(args: String*): String = {
     val buf = new StringBuffer
@@ -66,27 +67,44 @@ class IntegrationTests extends AnyFunSpec with BeforeAndAfterAll {
         .toList
         .map(_.toPath)
     ) {
-      val expectedFileName = if (isScala3) "expected-3.txt" else "expected.txt"
-      val expectedFile = scenario.resolve(expectedFileName)
-      if (expectedFile.toFile.exists()) {
-        it(scenario.getFileName.toString) {
-          val expected =
-            new String(
-              Files.readAllBytes(expectedFile),
-              StandardCharsets.UTF_8
-            ).trim
-          val actual =
-            compileFile(scenario.resolve("input.scala")).trim
+      expectFile(scalaVersion, scenario) match {
+        case Some(expectedFile) =>
+          it(scenario.getFileName.toString) {
+            val expected =
+              new String(
+                Files.readAllBytes(expectedFile),
+                StandardCharsets.UTF_8
+              ).trim
+            val actual =
+              compileFile(scenario.resolve("input.scala")).trim
 
-          if (actual != expected) {
-            println("Compiler output:")
-            println("=====")
-            println(actual)
-            println("=====")
+            if (actual != expected) {
+              println("Compiler output:")
+              println("=====")
+              println(actual)
+              println("=====")
+            }
+            assert(actual === expected)
           }
-          assert(actual === expected)
-        }
+        case None =>
+          ignore(scenario.getFileName.toString) {}
       }
+    }
+  }
+
+  private def expectFile(scalaVersion: String, scenario: Path) = {
+    val possibleNames = scalaVersion.split('.') match {
+      case Array("3", m, _) =>
+        List(
+          s"expected-3.$m.txt",
+          s"expected-3.txt"
+        )
+      case Array("2", mi, _) => List(s"expected.txt")
+      case _                 => Nil
+    }
+    possibleNames.collectFirst {
+      case fileName if scenario.resolve(fileName).toFile.exists() =>
+        scenario.resolve(fileName)
     }
   }
 }
