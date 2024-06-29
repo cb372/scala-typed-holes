@@ -4,7 +4,7 @@
    |
    |                     Found hole with type: Option[Ops]
    |                     Relevant bindings include
-   |                       args: List[String] (bound at input.scala:8:19)
+   |                       args: List[String] (bound at input.scala:9:19)
    |                              
 -- Info: src/test/resources/pattern-match-on-either/input.scala:11:21 ----------
 11 |    case Right(_) => ???
@@ -12,5 +12,5 @@
    |
    |                     Found hole with type: Option[Ops]
    |                     Relevant bindings include
-   |                       args: List[String] (bound at input.scala:8:19)
+   |                       args: List[String] (bound at input.scala:9:19)
    |

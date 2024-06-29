@@ -1,13 +1,14 @@
 package holes
 
-import java.nio.charset.StandardCharsets
-import java.nio.file.{Files, Path, Paths}
-
-import org.apache.commons.io.FileUtils
-import org.scalatest.{BeforeAndAfterAll}
-import org.scalatest.funspec.AnyFunSpec
 import buildinfo.BuildInfo.scalaVersion
+import org.apache.commons.io.FileUtils
+import org.scalatest.BeforeAndAfterAll
+import org.scalatest.funspec.AnyFunSpec
 
+import java.nio.charset.StandardCharsets
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
 import scala.sys.process._
 
 class IntegrationTests extends AnyFunSpec with BeforeAndAfterAll {
@@ -79,10 +80,18 @@ class IntegrationTests extends AnyFunSpec with BeforeAndAfterAll {
               compileFile(scenario.resolve("input.scala")).trim
 
             if (actual != expected) {
+              val tmpActual = Files.createTempFile("actual", ".txt")
+              Files.write(tmpActual, actual.getBytes(StandardCharsets.UTF_8))
               println("Compiler output:")
+              println(s"Written to: $tmpActual")
               println("=====")
               println(actual)
               println("=====")
+              println("Expected output:")
+              println("=====")
+              println(expected)
+              println("=====")
+              println(s"Output written to $tmpActual")
             }
             assert(actual === expected)
           }

@@ -1,7 +1,6 @@
 package holes
-import dotty.tools.dotc.plugins.{PluginPhase, StandardPlugin}
-import scala.util.control.ControlThrowable
-import dotty.tools.dotc.report
+import dotty.tools.dotc.plugins.PluginPhase
+import dotty.tools.dotc.plugins.StandardPlugin
 
 class TypedHolesPlugin extends StandardPlugin:
   val name: String = "typed-holes"

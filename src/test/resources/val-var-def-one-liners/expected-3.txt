@@ -36,7 +36,7 @@
    |
    |                               Found hole with type: Nothing
    |                               Relevant bindings include
-   |                                 x: String (bound at input.scala:20:17)
+   |                                 x: String (bound at input.scala:21:17)
    |                                        
 -- Info: src/test/resources/val-var-def-one-liners/input.scala:23:37 -----------
 23 |  val hole10: String => Int = { x => ??? }
@@ -44,7 +44,7 @@
    |
    |                                Found hole with type: Int
    |                                Relevant bindings include
-   |                                  x: String (bound at input.scala:22:32)
+   |                                  x: String (bound at input.scala:23:32)
    |                                         
 -- Info: src/test/resources/val-var-def-one-liners/input.scala:25:40 -----------
 25 |  val hole11 = { (a: Int, b: String) => ??? }
@@ -52,8 +52,8 @@
    |
    |                                Found hole with type: Nothing
    |                                Relevant bindings include
-   |                                  a: Int (bound at input.scala:24:18)
-   |                                  b: String (bound at input.scala:24:26)
+   |                                  a: Int (bound at input.scala:25:18)
+   |                                  b: String (bound at input.scala:25:26)
    |                                         
 -- Info: src/test/resources/val-var-def-one-liners/input.scala:27:49 -----------
 27 |  val hole12: (Int, String) => Int = { (a, b) => ??? }
@@ -61,8 +61,8 @@
    |
    |                                Found hole with type: Int
    |                                Relevant bindings include
-   |                                  a: Int (bound at input.scala:26:40)
-   |                                  b: String (bound at input.scala:26:43)
+   |                                  a: Int (bound at input.scala:27:40)
+   |                                  b: String (bound at input.scala:27:43)
    |                                         
 -- Info: src/test/resources/val-var-def-one-liners/input.scala:29:59 -----------
 29 |  val hole13: (Int, String) => (String, Int) = { (a, b) => ??? }
@@ -70,8 +70,8 @@
    |
    |                                Found hole with type: (String, Int)
    |                                Relevant bindings include
-   |                                  a: Int (bound at input.scala:28:50)
-   |                                  b: String (bound at input.scala:28:53)
+   |                                  a: Int (bound at input.scala:29:50)
+   |                                  b: String (bound at input.scala:29:53)
    |                                         
 -- Info: src/test/resources/val-var-def-one-liners/input.scala:31:63 -----------
 31 |  val hole14: String => Int = { s => s.foldLeft(0) { (a, c) => ??? } }
@@ -79,7 +79,7 @@
    |
    |                                Found hole with type: Int
    |                                Relevant bindings include
-   |                                  a: Int (bound at input.scala:30:54)
-   |                                  c: Char (bound at input.scala:30:57)
-   |                                  s: String (bound at input.scala:30:32)
+   |                                  a: Int (bound at input.scala:31:54)
+   |                                  c: Char (bound at input.scala:31:57)
+   |                                  s: String (bound at input.scala:31:32)
    |

@@ -1,22 +1,16 @@
 package holes
 
-import dotty.tools.dotc.plugins.PluginPhase
-import dotty.tools.dotc.parsing.Parser
-import dotty.tools.dotc.typer.TyperPhase
-import dotty.tools.dotc.core.Contexts.Context
 import dotty.tools.dotc.ast.tpd
 import dotty.tools.dotc.ast.untpd
-import dotty.tools.dotc.core.Names.Name
-import dotty.tools.dotc.util.Property
-import dotty.tools.dotc.core.Names.TermName
-import dotty.tools.dotc.core.StdNames
-import dotty.tools.dotc.report
-import dotty.tools.dotc.core.Contexts.ctx
-import dotty.tools.dotc.core.Contexts.atPhase
-import dotty.tools.dotc.transform.MegaPhase
-import dotty.tools.dotc.ast.untpd.TreeTraverser
-import dotty.tools.dotc.ast.Trees.CaseDef
 import dotty.tools.dotc.ast.untpd.UntypedTreeMap
+import dotty.tools.dotc.core.Contexts.Context
+import dotty.tools.dotc.core.Contexts.ctx
+import dotty.tools.dotc.core.Names.Name
+import dotty.tools.dotc.core.StdNames
+import dotty.tools.dotc.parsing.Parser
+import dotty.tools.dotc.plugins.PluginPhase
+import dotty.tools.dotc.typer.TyperPhase
+import dotty.tools.dotc.util.Property
 
 class NamedHolesPhase extends PluginPhase:
   override def phaseName: String = "named-holes"

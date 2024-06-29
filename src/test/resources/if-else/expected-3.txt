@@ -4,8 +4,8 @@
   |
   |      Found hole with type: Boolean
   |      Relevant bindings include
-  |        x: Int (bound at input.scala:4:8)
-  |        y: String (bound at input.scala:4:16)
+  |        x: Int (bound at input.scala:5:8)
+  |        y: String (bound at input.scala:5:16)
   |               
 -- Info: src/test/resources/if-else/input.scala:10:6 ---------------------------
 10 |      ???
@@ -13,8 +13,8 @@
    |
    |      Found hole with type: Boolean
    |      Relevant bindings include
-   |        x: Int (bound at input.scala:4:8)
-   |        y: String (bound at input.scala:4:16)
+   |        x: Int (bound at input.scala:5:8)
+   |        y: String (bound at input.scala:5:16)
    |               
 -- Info: src/test/resources/if-else/input.scala:15:23 --------------------------
 15 |    if (y.length == x) ???
@@ -22,6 +22,6 @@
    |
    |                       Found hole with type: Boolean
    |                       Relevant bindings include
-   |                         x: Int (bound at input.scala:13:8)
-   |                         y: String (bound at input.scala:13:16)
+   |                         x: Int (bound at input.scala:14:8)
+   |                         y: String (bound at input.scala:14:16)
    |

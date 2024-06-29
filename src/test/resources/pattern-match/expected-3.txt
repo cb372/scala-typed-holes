@@ -4,7 +4,7 @@
   |
   |      Found hole with type: String
   |      Relevant bindings include
-  |        x: Int (bound at input.scala:4:10)
+  |        x: Int (bound at input.scala:5:10)
   |               
 -- Info: src/test/resources/pattern-match/input.scala:10:14 --------------------
 10 |    case _ => ???
@@ -12,5 +12,5 @@
    |
    |              Found hole with type: String
    |              Relevant bindings include
-   |                x: Int (bound at input.scala:4:10)
+   |                x: Int (bound at input.scala:5:10)
    |

@@ -24,5 +24,5 @@
    |
    |    Found hole with type: Int
    |    Relevant bindings include
-   |      contextual$1: a.A.OpaqueInt (bound at input.scala:15:4)
+   |      contextual$1: a.A.OpaqueInt (bound at input.scala:16:4)
    |

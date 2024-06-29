@@ -4,5 +4,5 @@
   |
   |                          Found hole with type: Boolean
   |                          Relevant bindings include
-  |                            parent: foo.Parent (bound at input.scala:7:10)
+  |                            parent: foo.Parent (bound at input.scala:8:10)
   |

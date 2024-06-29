@@ -24,5 +24,5 @@
    |
    |    Found hole with type: Int
    |    Relevant bindings include
-   |      evidence$1: a.A.OpaqueInt (bound at input.scala:15:4)
+   |      evidence$1: a.A.OpaqueInt (bound at input.scala:16:4)
    |

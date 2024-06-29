@@ -4,6 +4,6 @@
   |
   |         Found hole with type: String
   |         Relevant bindings include
-  |           x: A (bound at input.scala:4:21)
-  |           y: A (bound at input.scala:4:27)
+  |           x: A (bound at input.scala:5:21)
+  |           y: A (bound at input.scala:5:27)
   |

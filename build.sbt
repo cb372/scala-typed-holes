@@ -2,6 +2,7 @@ import sbt.Keys._
 import sbt._
 
 scalaVersion := "2.13.4"
+val scala3 = "3.4.2"
 crossScalaVersions := List(
   "2.11.12",
   "2.12.15",
@@ -15,7 +16,7 @@ crossScalaVersions := List(
   "2.13.7",
   "2.13.8",
   "3.3.3",
-  "3.4.1"
+  scala3
 )
 
 crossVersion := CrossVersion.full
@@ -68,7 +69,7 @@ val `scala-typed-holes-3` = // just for IDE support
   project
     .in(file("scala-typed-holes-3"))
     .settings(
-      scalaVersion := "3.4.1",
+      scalaVersion := scala3,
       crossScalaVersions := Nil,
       Compile / unmanagedSourceDirectories := Seq(),
       Compile / unmanagedSourceDirectories += (ThisBuild / baseDirectory).value / "src" / "main" / "scala",
@@ -77,8 +78,9 @@ val `scala-typed-holes-3` = // just for IDE support
       target := (ThisBuild / baseDirectory).value / "target" / "target3",
       publish / skip := true,
       libraryDependencies ++= Seq(
-        "org.scala-lang" %% "scala3-compiler" % "3.4.1"
-      )
+        "org.scala-lang" %% "scala3-compiler" % scala3
+      ),
+      scalacOptions += "-Wunused:all"
     )
 
 val docs = project

@@ -4,7 +4,7 @@
    |
    |                      Found hole 'left' with type: Option[Result]
    |                      Relevant bindings include
-   |                        args: Array[String] (bound at input.scala:10:12)
+   |                        args: Array[String] (bound at input.scala:11:12)
    |                               
 -- Info: src/test/resources/named-holes/input.scala:13:25 ----------------------
 13 |    case Right(x)     => __right
@@ -12,5 +12,5 @@
    |
    |                      Found hole 'right' with type: Option[Result]
    |                      Relevant bindings include
-   |                        args: Array[String] (bound at input.scala:10:12)
+   |                        args: Array[String] (bound at input.scala:11:12)
    |
