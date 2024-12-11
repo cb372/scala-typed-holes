@@ -20,8 +20,8 @@ jobs:
           - 3.3.3
           - 3.4.2
         java:
-          - 1.11
-          - 1.21
+          - 11
+          - 21
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
