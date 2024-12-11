@@ -20,8 +20,8 @@ jobs:
           - 3.3.3
           - 3.4.2
         java:
-          - 1.8
-          - 1.11
+          - 11
+          - 17
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -30,12 +30,11 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Java and Scala
-        uses: olafurpg/setup-scala@v13
+        uses: actions/setup-java@v4
         with:
-          java-version: adopt@${{ matrix.java }}
-
-      - name: Cache sbt
-        uses: coursier/cache-action@v6
+          distribution: 'adopt'
+          java-version: ${{ matrix.java }}
+          cache: 'sbt'
 
       - name: Test
         run: |
