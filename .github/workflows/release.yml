@@ -40,10 +40,11 @@ jobs:
           fetch-depth: 0 # fetch all tags to make sbt-dynver work properly
 
       - name: Setup Java and Scala
-        uses: olafurpg/setup-scala@v13
-
-      - name: Cache sbt
-        uses: coursier/cache-action@v6
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'adopt'
+          java-version: 17
+          cache: 'sbt'
 
       - name: Generate readme
         run: sbt docs/mdoc

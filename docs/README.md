@@ -94,7 +94,11 @@ The plugin is published for the following Scala versions:
 
 * 2.11.12
 * 2.12.15
-* 2.13.{0, 1, 2, 3, 4, 5, 6, 7, 8}
+* 2.13.{13, 14, 15}
+* 3.3.4
+* 3.4.3
+* 3.5.2
+* 3.6.2
 
 ## Changing the log level
 
