@@ -1,0 +1,8 @@
+-- Info: src/test/resources/type-ascription/input.scala:5:13 -------------------
+5 |    val a = (__ahole: Short) + i
+  |             ^^^^^^^
+  |
+  |             Found hole 'ahole' with type: Short
+  |             Relevant bindings include
+  |               i: Double (bound at input.scala:4:35)
+  |

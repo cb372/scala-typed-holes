@@ -1,1 +1,4 @@
 **/target
+.*
+!.gitignore
+**/metals.sbt

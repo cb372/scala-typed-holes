@@ -1,0 +1,8 @@
+-- Info: src/test/resources/named-args/input.scala:5:29 ------------------------
+5 |  def bar = foo(y = ???, x = ???)
+  |                             ^
+  |                             Found hole with type: Int
+-- Info: src/test/resources/named-args/input.scala:5:20 ------------------------
+5 |  def bar = foo(y = ???, x = ???)
+  |                    ^
+  |                    Found hole with type: String

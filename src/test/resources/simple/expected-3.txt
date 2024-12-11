@@ -1,0 +1,4 @@
+-- Info: src/test/resources/simple/input.scala:4:15 ----------------------------
+4 |  val i: Int = ???
+  |               ^^^
+  |               Found hole with type: Int

@@ -1,0 +1,8 @@
+-- Info: src/test/resources/pattern-match-on-nested-case-class/input.scala:9:76 
+9 |    case p @ Parent(wow, yeah, c @ Child(hmm, ok, _), d, Child(_, _, _)) => ???
+  |                                                                            ^^^
+  |
+  |                          Found hole with type: Boolean
+  |                          Relevant bindings include
+  |                            parent: foo.Parent (bound at input.scala:8:10)
+  |

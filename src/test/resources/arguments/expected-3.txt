@@ -1,0 +1,28 @@
+-- Info: src/test/resources/arguments/input.scala:9:4 --------------------------
+9 |  f(???, if(1 == 2) ??? else ???)
+  |    ^^^
+  |    Found hole with type: Int
+-- Info: src/test/resources/arguments/input.scala:9:20 -------------------------
+9 |  f(???, if(1 == 2) ??? else ???)
+  |                    ^^^
+  |                    Found hole with type: String
+-- Info: src/test/resources/arguments/input.scala:9:29 -------------------------
+9 |  f(???, if(1 == 2) ??? else ???)
+  |                             ^^^
+  |                             Found hole with type: String
+-- Info: src/test/resources/arguments/input.scala:12:8 -------------------------
+12 |  ff(1)(???){ ??? }
+   |        ^^^
+   |        Found hole with type: String
+-- Info: src/test/resources/arguments/input.scala:12:14 ------------------------
+12 |  ff(1)(???){ ??? }
+   |              ^^^
+   |              Found hole with type: a.O
+-- Info: src/test/resources/arguments/input.scala:16:4 -------------------------
+16 |  m(???)
+   |    ^^^
+   |
+   |    Found hole with type: Int
+   |    Relevant bindings include
+   |      contextual$1: a.A.OpaqueInt (bound at input.scala:16:4)
+   |

@@ -25,10 +25,10 @@ src/test/resources/val-var-def-one-liners/input.scala:19: Found hole with type: 
 src/test/resources/val-var-def-one-liners/input.scala:21:
 Found hole with type: Nothing
 Relevant bindings include
-  x: String (bound at input.scala:21:18)
+  x: String (bound at input.scala:21:19)
 
-  val hole9 = { x: String => ??? }
-                             ^
+  val hole9 = { (x: String) => ??? }
+                               ^
 src/test/resources/val-var-def-one-liners/input.scala:23:
 Found hole with type: Int
 Relevant bindings include
