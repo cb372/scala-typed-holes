@@ -2,7 +2,7 @@ import sbt.Keys._
 import sbt._
 
 scalaVersion := "2.13.4"
-val scala3 = "3.4.2"
+val scala3 = "3.6.2"
 crossScalaVersions := List(
   "2.11.12",
   "2.12.15",
@@ -15,6 +15,8 @@ crossScalaVersions := List(
   "2.13.14",
   "2.13.15",
   "3.3.3",
+  "3.4.3",
+  "3.5.2",
   scala3
 )
 
