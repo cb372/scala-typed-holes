@@ -52,7 +52,7 @@ jobs:
       - name: Checkout the main branch into a subdirectory
         uses: actions/checkout@v2
         with:
-          ref: master
+          ref: main
           path: './main'
 
       - name: Copy generated readme to main branch
